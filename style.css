@@ -1,0 +1,24 @@
+.container{
+    background-color: gray;
+    height: 600px;
+    width: 600px;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px;
+}
+
+.box{
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.box:hover{
+    scale: 1.02;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
