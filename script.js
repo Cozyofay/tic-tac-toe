@@ -29,22 +29,24 @@ const Gameboard = (function(){
     const reset = () => board.fill("");
     return {getBoard, placeMark, reset}
 })()
-function checkWinner(gameboard, boxes){
+function checkWinner(){
     const winngCombinations = [
         [0,1,2], [3,4,5], [6,7,8],
         [0,3,6], [1,4,7], [2,5,8],
         [0,4,8], [2,4,6]
     ];
-    for (combo of winngCombinations){
+    for (let combo of winngCombinations){
     const [a,b,c] = combo;
 
-    if (Gameboard.board[a] !== "" && Gameboard.board[a] == Gameboard.board[b] && Gameboard.board[a] ==  Gameboard.board[c]){
-        if (Gameboard.board[a] == "X"){
+    if (Gameboard.getBoard()[a] !== "" && Gameboard.getBoard()[a] == Gameboard.getBoard()[b] && Gameboard.getBoard()[a] ==  Gameboard.getBoard()[c]){
+        if (Gameboard.getBoard()[a] == "X"){
             alert("player 1 wins")
             Gameboard.reset() 
-            }else{
+            return
+            }else if (Gameboard.getBoard()[a] == "O"){
             alert("player 2 wins")
             Gameboard.reset() 
+            return
         }
         }
 }
@@ -68,6 +70,8 @@ for (let box of boxes) {
             if(box.textContent!==""){return;}
             box.textContent=currentPlayer.marker;
             currentPlayer = currentPlayer === player1 ? player2 : player1;
+            console.log(Gameboard.getBoard())
+            checkWinner();
             
 
             
@@ -157,6 +161,6 @@ const reset = document.querySelector(".Reset")
 reset.addEventListener("click", () => {
     for (let box of boxes) {
         box.textContent = ""
-        Gameboard.reset() = ["","","","","","","","",""]
+        Gameboard.reset()
     }
 })
