@@ -1,22 +1,4 @@
 const boxes = document.querySelectorAll(".box")
-/*console.log(boxes)
-for (let i = 0; i < boxes.length; i++) {
-    const elementId = boxes[i].id;
-    console.log(elementId)
-}
-
-const winningCombinations = [
-    [0,1,2], [3,4,5], [6,7,8],
-    [0,3,6], [1,4,7], [2,5,8],
-    [0,4,8], [2,4,6]]
-
-    function resetAll(){
-    for (let box of boxes) {
-        box.textContent = ""
-        gameboard.gameboard = ["","","","","","","","",""]
-    }
-}
-*/
 
 const Gameboard = (function(){ 
     let board = ["","","","","","","","",""];
@@ -29,6 +11,36 @@ const Gameboard = (function(){
     const reset = () => board.fill("");
     return {getBoard, placeMark, reset}
 })()
+
+const Player = (name, marker) => {(name, marker)}
+const player1 = Player("player1", "X")
+const player2 = Player("player2", "O")
+
+
+const GameController = (() => {
+    let currentPlayer = player1;
+
+    const handleClick = (box) => {
+        const index = Number(box.id)
+        if (Gameboard.placeMark(index, currentPlayer.marker)){
+            box.textContent = currentPlayer,marker;
+            checkWinner();
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+        }
+    }
+    const setup = () => {
+        for (let box of boxes) {
+            box.addEventListener("click", () => handleClick(box))
+        }
+        reset.addEventListener("click", () => {
+            Gameboard.reset()
+            for (let box of boxes) box.textContent = ""
+                currentPlayer = player1
+            })
+        }
+    return {setup}
+})();
+
 function checkWinner(){
     const winngCombinations = [
         [0,1,2], [3,4,5], [6,7,8],
@@ -52,17 +64,28 @@ function checkWinner(){
 }
     
 }
-const player1 = {
-    name: "player1",
-    marker: "X"
-}
-const player2 = {
-    name: "player2",
-    marker: "O"
-}
 
 
-let currentPlayer = player1;
+
+/*
+console.log(boxes)
+for (let i = 0; i < boxes.length; i++) {
+    const elementId = boxes[i].id;
+    console.log(elementId)
+}
+
+const winningCombinations = [
+    [0,1,2], [3,4,5], [6,7,8],
+    [0,3,6], [1,4,7], [2,5,8],
+    [0,4,8], [2,4,6]]
+
+    function resetAll(){
+    for (let box of boxes) {
+        box.textContent = ""
+        gameboard.gameboard = ["","","","","","","","",""]
+    }
+}
+
 for (let box of boxes) {
         box.addEventListener("click", () => {
             id = box.id
@@ -73,9 +96,19 @@ for (let box of boxes) {
             console.log(Gameboard.getBoard())
             checkWinner();
             
-
+    });
+    
+}
+ 
+const reset = document.querySelector(".Reset")
+reset.addEventListener("click", () => {
+    for (let box of boxes) {
+        box.textContent = ""
+        Gameboard.reset()
+    }
+})
             
-/*
+
             if (gameboard.gameboard[0] !== "" && gameboard.gameboard[0] == gameboard.gameboard[1] && gameboard.gameboard[0] ==  gameboard.gameboard[2]){
                 if (gameboard.gameboard[0] == "X"){
                     alert("player 1 wins")
@@ -150,17 +183,8 @@ for (let box of boxes) {
                     }
                     }    
                     */   
-    });
-    
-}
 
 
 
 
-const reset = document.querySelector(".Reset")
-reset.addEventListener("click", () => {
-    for (let box of boxes) {
-        box.textContent = ""
-        Gameboard.reset()
-    }
-})
+
